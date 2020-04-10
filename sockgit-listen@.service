@@ -1,0 +1,21 @@
+[Unit]
+Description=Sockgit Listen Server
+After=network.target sockgit-listen.socket
+Requires=sockgit-listen.socket
+
+[Service]
+Type=oneshot
+User=git
+Group=git
+WorkingDirectory=/srv/git
+ExecStart=/bin/bash -c 'while read REPO; do /usr/bin/git init --bare --shared $REPO.git && cd $REPO.git && /usr/bin/git remote add public $USER@$PUBLIC:$PATH/$REPO.git; done;'
+StandardInput=socket
+StandardOutput=syslog
+StandardError=syslog
+Environment="USER=git"
+Environment="PUBLIC=add your url"
+Environment="PATH=/srv/git"
+Environment="GIT_TEMPLATE_DIR=/usr/share/sockgit/templates"
+
+[Install]
+WantedBy=multi-user.target
