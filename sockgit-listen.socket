@@ -1,0 +1,10 @@
+[Unit]
+Description=Sockgit Listening Socket
+PartOf=sockgit-listen@.service
+
+[Socket]
+ListenStream=9119
+Accept=yes
+
+[Install]
+WantedBy=sockets.target
