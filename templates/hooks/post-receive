@@ -1,0 +1,3 @@
+while read OLD_REV NEW_REF REF_NAME; do
+  git push public $NEW_REV:$REF_NAME
+done
