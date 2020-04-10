@@ -1,6 +1,6 @@
 .PHONY: install uninstall
 install:
-	mkdir -p /usr/share/sockgit/templates && cp -r templates/*
+	mkdir -p /usr/share/sockgit/templates && cp -r templates/* /usr/share/sockgit/templates/
 	cp sockgit-listen* /etc/systemd/system/
 	ln -s $(shell pwd)/sockgit.sh /usr/bin/sockgit
 
