@@ -5,6 +5,7 @@ install:
 	ln -s $(shell pwd)/sockgit.sh /usr/bin/sockgit
 
 uninstall:
-	rm -f /etc/systemd/system/sockgit-listen*
+	rm -f /etc/systemd/system/sockgit-listen.socket
+	rm -f /etc/systemd/system/sockgit-listen@.service
 	rm -rf /usr/share/sockgit
 	rm -f /usr/bin/sockgit
