@@ -8,7 +8,7 @@ Type=oneshot
 User=git
 Group=git
 WorkingDirectory=/srv/git
-ExecStart=/bin/bash -c '[ $REMOTE_ADDR == $WHITELIST_IP ] && while read REPO; do /usr/bin/git init --bare --shared $REPO.git && cd $REPO.git && /usr/bin/git remote add public $USER@$PUBLIC:$PATH/$REPO.git; done;'
+ExecStart=/opt/sockgit/target/release/sockgit
 StandardInput=socket
 StandardOutput=syslog
 StandardError=syslog
