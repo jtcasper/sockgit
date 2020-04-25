@@ -33,9 +33,9 @@ fn main() -> Result<(), Box<dyn error::Error>> {
 
             let repo = git2::Repository::init_opts(format!("{}.git", repo_name), &opts)?;
 
-            let public_user = env::var("USER").unwrap();
-            let public_name = env::var("PUBLIC").unwrap();
-            let public_path = env::var("PATH").unwrap();
+            let public_user = env::var("USER")?;
+            let public_name = env::var("PUBLIC")?;
+            let public_path = env::var("PATH")?;
             repo.remote(
                 &public_name,
                 &format!(
