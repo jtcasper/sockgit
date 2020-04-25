@@ -1,8 +1,8 @@
-use std::io;
-use std::env;
-use std::path;
-use std::error;
 use git2;
+use std::env;
+use std::error;
+use std::io;
+use std::path;
 
 fn check_ip() -> Result<(), Box<dyn error::Error>> {
     let remote_ip = env::var("REMOTE_ADDR")?;
@@ -37,15 +37,15 @@ fn main() -> Result<(), Box<dyn error::Error>> {
             let public_name = env::var("PUBLIC").unwrap();
             let public_path = env::var("PATH").unwrap();
             repo.remote(
-                &public_name, 
+                &public_name,
                 &format!(
-                    "{user}@{public}:{path}/{repo}.git", 
-                    user = public_user, 
-                    public = public_name, 
-                    path = public_path, 
+                    "{user}@{public}:{path}/{repo}.git",
+                    user = public_user,
+                    public = public_name,
+                    path = public_path,
                     repo = repo_name
-                    )
-                )?;
+                ),
+            )?;
             Ok(())
         }
         Err(e) => Err(e),
