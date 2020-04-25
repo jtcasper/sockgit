@@ -1,4 +1,4 @@
 #!/bin/bash
 while read OLD_REV NEW_REV REF_NAME; do
-  git push public $NEW_REV:$REF_NAME
+  git push -f public $NEW_REV:$REF_NAME
 done
