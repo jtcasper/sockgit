@@ -4,19 +4,16 @@ use std::path;
 use std::error;
 use git2;
 
-fn check_ip() -> Result<(), io::Error> {
-    match env::var("REMOTE_ADDR") {
-        Ok(remote_ip) => match env::var("WHITELIST_IP") {
-            Ok(whitelist_ip) => {
-                if remote_ip == whitelist_ip {
-                    Ok(())
-                } else {
-                    Err(io::Error::new(io::ErrorKind::ConnectionRefused, format!("Blocked connection from {}", remote_ip)))
-                }
-            }
-            Err(e) => Err(io::Error::new(io::ErrorKind::ConnectionRefused, e)),
-        }
-        Err(e) => Err(io::Error::new(io::ErrorKind::ConnectionRefused, e)),
+fn check_ip() -> Result<(), Box<dyn error::Error>> {
+    let remote_ip = env::var("REMOTE_ADDR")?;
+    let whitelist_ip = env::var("WHITELIST_IP")?;
+    if remote_ip == whitelist_ip {
+        Ok(())
+    } else {
+        Err(Box::new(io::Error::new(
+            io::ErrorKind::ConnectionRefused,
+            format!("Blocked connection from {}", remote_ip),
+        )))
     }
 }
 
@@ -50,7 +47,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
                     )
                 )?;
             Ok(())
-        } 
-        Err(e) => Err(Box::new(e)),
+        }
+        Err(e) => Err(e),
     }
 }
